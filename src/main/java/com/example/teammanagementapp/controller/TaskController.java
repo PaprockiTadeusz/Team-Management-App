@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,31 @@ public class TaskController {
         return taskService.getSingleTask(title)
                 .map(taskDTO -> new ResponseEntity<>(taskDTO, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity("No task with this title " + title, HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping
+    public ResponseEntity<TaskDTO> addTask(@RequestBody TaskDTO taskDTO ) {
+        if(taskService.addTask(taskDTO)){
+
+            return new ResponseEntity<>(taskDTO, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity("Task with this title currently exists", HttpStatus.NOT_FOUND);
+        }
+
+    }
+    @PutMapping
+    public ResponseEntity<TaskDTO> editTask(@RequestBody TaskDTO taskDTO){
+        return taskService.editTask(taskDTO)
+                .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
+                .orElseGet(() ->new ResponseEntity("No task with this title", HttpStatus.NOT_FOUND));
+    }
+
+    @PatchMapping
+    public ResponseEntity<TaskDTO> editTaskPartially(@RequestBody TaskDTO taskDTO){
+        return taskService.editTaskPartially(taskDTO)
+                .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity("No task with this title", HttpStatus.NOT_FOUND));
     }
 
 }
