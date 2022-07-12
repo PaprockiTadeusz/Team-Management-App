@@ -42,7 +42,8 @@ public class TaskService {
                     Optional.of(taskDTO.getDescription()).ifPresent(entity::setDescription);
                     Optional.of(taskDTO.getStatus()).ifPresent(entity::setStatus);
                     Optional.of(taskDTO.getDateOfExection()).ifPresent(entity::setDateOfExection);
-                    return Optional.of(modelMapper.map(taskDTO, TaskDTO.class));
+                    TaskEntity save = taskRepository.save(entity);
+                    return Optional.of(modelMapper.map(save, TaskDTO.class));
                 }).orElseGet(Optional::empty);
     }
 
