@@ -21,7 +21,8 @@ public class TaskService {
     private final ModelMapper modelMapper;
 
     public Optional<TaskDTO> getSingleTask(String title) {
-        return taskRepository.findByTitle(title).map(o -> modelMapper.map(o, TaskDTO.class));
+        return taskRepository.findByTitle(title)
+                .map(o -> modelMapper.map(o, TaskDTO.class));
     }
 
     public List<TaskDTO> getAllTasks() {
