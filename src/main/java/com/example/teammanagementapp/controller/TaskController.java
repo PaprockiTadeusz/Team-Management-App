@@ -55,5 +55,11 @@ public class TaskController {
                 .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity("No task with this title", HttpStatus.NOT_FOUND));
     }
+    @PatchMapping
+    public ResponseEntity<TaskDTO> editTaskStatus(String title,int status){
+        return taskService.editTaskStatus(title,status)
+                .map(t -> new ResponseEntity<>(t, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity("No task with this title", HttpStatus.NOT_FOUND));
+    }
 
 }

@@ -1,8 +1,10 @@
 package com.example.teammanagementapp.dto;
 
+import com.example.teammanagementapp.entities.UserEntity;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,5 +24,7 @@ public class TaskDTO {
     // 4 - Finished
     // 5 - Stopped
     private LocalDate dateOfExection;
-    //TODO Add users
+
+    private List<UserEntity> users;
+
 }

@@ -43,6 +43,7 @@ public class TaskService {
                     Optional.of(taskDTO.getDescription()).ifPresent(entity::setDescription);
                     Optional.of(taskDTO.getStatus()).ifPresent(entity::setStatus);
                     Optional.of(taskDTO.getDateOfExection()).ifPresent(entity::setDateOfExection);
+                    Optional.of(taskDTO.getUsers()).ifPresent(entity::setUsers);
                     TaskEntity save = taskRepository.save(entity);
                     return Optional.of(modelMapper.map(save, TaskDTO.class));
                 }).orElseGet(Optional::empty);
@@ -55,5 +56,11 @@ public class TaskService {
         }
         return false;
 
+    }
+
+    public Optional<TaskDTO> editTaskStatus(String title, int status){
+        taskRepository.editTaskStatus(status);
+        TaskEntity taskEntity = taskRepository.findByTitle(title).get();
+        return Optional.of(modelMapper.map(taskEntity, TaskDTO.class));
     }
 }

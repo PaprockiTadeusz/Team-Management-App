@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,8 +24,8 @@ public class TaskEntity {
     private String description;
 
     private int status;
-
-    //TODO Add Users
+    @OneToMany(mappedBy = "id")
+    private List<UserEntity> users;
 
     private LocalDate dateOfExection;
 
