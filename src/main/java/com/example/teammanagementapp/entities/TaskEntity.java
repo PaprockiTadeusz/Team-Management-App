@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "task")
+@Entity(name = "tasks")
 @Builder
 
 public class TaskEntity {

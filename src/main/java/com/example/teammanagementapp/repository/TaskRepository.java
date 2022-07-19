@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     Optional<TaskEntity> findByTitle(String title);
-    Optional<TaskEntity> editTaskStatus(int status);
+
+//    Optional<TaskEntity> editTaskStatus(int status);
 }

@@ -59,8 +59,11 @@ public class TaskService {
     }
 
     public Optional<TaskDTO> editTaskStatus(String title, int status){
-        taskRepository.editTaskStatus(status);
-        TaskEntity taskEntity = taskRepository.findByTitle(title).get();
-        return Optional.of(modelMapper.map(taskEntity, TaskDTO.class));
+        return taskRepository.findByTitle(title)
+                .map(entity -> {
+                    entity.setStatus(status);
+                    TaskEntity save = taskRepository.save(entity);
+                    return Optional.of(modelMapper.map(save, TaskDTO.class));
+                }).orElseGet(Optional::empty);
     }
 }
